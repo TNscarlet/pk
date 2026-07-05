@@ -230,9 +230,9 @@ function createCards(containerId, rows, type) {
 
     card.innerHTML = `
       <div class="ev-line">
-        <span>H ${row.h}</span>
-        <span>B ${row.b}</span>
-        <span>D ${row.d}</span>
+        <span>H努力値 ${row.h}</span>
+        <span>B努力値 ${row.b}</span>
+        <span>D努力値 ${row.d}</span>
       </div>
       <dl>
         ${statRows.map(([label, value, className]) => `
