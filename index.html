@@ -1,0 +1,152 @@
+<!doctype html>
+<html lang="ja">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>最大耐久指数計算機</title>
+  <meta name="description" content="新仕様の努力値配分で、総合耐久・物理耐久・特殊耐久が最大になる配分を計算します。">
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+  <main class="app">
+    <header class="hero">
+      <h1>最大耐久指数計算機</h1>
+      <p>H・B・Dの振り分けを総当たりし、総合・物理・特殊耐久の最大配分を同時に表示します。</p>
+    </header>
+
+    <section class="panel input-panel">
+      <h2>入力</h2>
+
+      <div class="input-grid">
+        <label class="field">
+          <span>HP種族値</span>
+          <input id="baseHP" type="number" min="1" step="1" inputmode="numeric" placeholder="例: 100">
+        </label>
+
+        <label class="field">
+          <span>防御種族値</span>
+          <input id="baseDef" type="number" min="1" step="1" inputmode="numeric" placeholder="例: 100">
+        </label>
+
+        <label class="field">
+          <span>特防種族値</span>
+          <input id="baseSpDef" type="number" min="1" step="1" inputmode="numeric" placeholder="例: 100">
+        </label>
+
+        <label class="field">
+          <span>努力値合計</span>
+          <input id="totalEV" type="number" min="0" max="66" step="1" inputmode="numeric" value="66">
+        </label>
+      </div>
+
+      <div class="option-grid">
+        <fieldset>
+          <legend>性格補正</legend>
+          <label><input type="radio" name="nature" value="none" checked>なし</label>
+          <label><input type="radio" name="nature" value="def">防御↑</label>
+          <label><input type="radio" name="nature" value="spdef">特防↑</label>
+        </fieldset>
+
+        <fieldset>
+          <legend>アイテム</legend>
+          <label><input type="radio" name="item" value="none" checked>なし</label>
+          <label><input type="radio" name="item" value="vest">とつげきチョッキ</label>
+          <label><input type="radio" name="item" value="eviolite">しんかのきせき</label>
+        </fieldset>
+      </div>
+
+      <p class="note">※しんかのきせきは未進化ポケモンのみ有効です。この計算機では適用可否の自動判定は行いません。</p>
+
+      <button id="calculateButton" type="button">計算する</button>
+      <p id="errorMessage" class="error" aria-live="polite"></p>
+    </section>
+
+    <section id="conditionSummary" class="summary" hidden></section>
+
+    <section class="panel result-block">
+      <div class="result-heading">
+        <h2>総合耐久指数 最大</h2>
+        <p id="totalCount" class="count"></p>
+      </div>
+
+      <div class="table-wrap">
+        <table id="totalTable">
+          <thead>
+            <tr>
+              <th>H努力値</th>
+              <th>B努力値</th>
+              <th>D努力値</th>
+              <th>HP</th>
+              <th>防御</th>
+              <th>特防</th>
+              <th>物理</th>
+              <th>特殊</th>
+              <th>総合</th>
+            </tr>
+          </thead>
+          <tbody></tbody>
+        </table>
+      </div>
+
+      <div id="totalCards" class="card-list"></div>
+    </section>
+
+    <section class="panel result-block">
+      <div class="result-heading">
+        <h2>物理耐久指数 最大</h2>
+        <p id="physicalCount" class="count"></p>
+      </div>
+
+      <div class="table-wrap">
+        <table id="physicalTable">
+          <thead>
+            <tr>
+              <th>H努力値</th>
+              <th>B努力値</th>
+              <th>D努力値</th>
+              <th>HP</th>
+              <th>防御</th>
+              <th>特防</th>
+              <th>物理</th>
+            </tr>
+          </thead>
+          <tbody></tbody>
+        </table>
+      </div>
+
+      <div id="physicalCards" class="card-list"></div>
+    </section>
+
+    <section class="panel result-block">
+      <div class="result-heading">
+        <h2>特殊耐久指数 最大</h2>
+        <p id="specialCount" class="count"></p>
+      </div>
+
+      <div class="table-wrap">
+        <table id="specialTable">
+          <thead>
+            <tr>
+              <th>H努力値</th>
+              <th>B努力値</th>
+              <th>D努力値</th>
+              <th>HP</th>
+              <th>防御</th>
+              <th>特防</th>
+              <th>特殊</th>
+            </tr>
+          </thead>
+          <tbody></tbody>
+        </table>
+      </div>
+
+      <div id="specialCards" class="card-list"></div>
+    </section>
+  </main>
+
+  <script src="script.js"></script>
+</body>
+
+</html>
